@@ -47,10 +47,12 @@ h2 { font-size: 20px; line-height: 1.4; margin: 16px 0; }
 .opt.right .key { background: var(--ok); border-color: var(--ok); color: var(--card); }
 .opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
 .opt.wrong .key { background: var(--bad); border-color: var(--bad); color: var(--card); }
-.explain { margin-top: 16px; padding: 14px 16px; border-radius: 10px; border-left: 4px solid; background: var(--card); }
-.explain.ok { border-color: var(--ok); }
-.explain.bad { border-color: var(--bad); }
+.explain { margin-top: 16px; padding: 14px 16px; border-radius: 10px; border: 1px solid; }
+.explain.ok { border-color: var(--ok); background: var(--ok-bg); }
+.explain.bad { border-color: var(--bad); background: var(--bad-bg); }
 .explain strong { display: block; margin-bottom: 4px; }
+.explain.ok strong { color: var(--ok); }
+.explain.bad strong { color: var(--bad); }
 .explain p { margin: 6px 0 0; }
 .palette { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
 .palette button { width: 36px; height: 32px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; font-size: 13px; cursor: pointer; }
@@ -63,9 +65,9 @@ h2 { font-size: 20px; line-height: 1.4; margin: 16px 0; }
 .row .meter { grid-column: 1 / -1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
 .row .meter i { display: block; height: 100%; background: var(--accent); }
 details { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 12px 14px; margin: 8px 0; }
-details.bad { border-left: 4px solid var(--bad); }
-details.ok { border-left: 4px solid var(--ok); }
 summary { cursor: pointer; font-weight: 600; }
+summary .yes { color: var(--ok); }
+summary .no { color: var(--bad); }
 details ul { padding-left: 20px; }
 details li.right { color: var(--ok); font-weight: 600; }
 details li.wrong { color: var(--bad); text-decoration: line-through; }

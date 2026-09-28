@@ -147,7 +147,7 @@ function results() {
   }).join('');
   const review = graded.map(x => `
     <details class="${ok(x) ? 'ok' : 'bad'}" ${ok(x) ? '' : 'open'}>
-      <summary>${ok(x) ? '✓' : '✗'} ${esc(x.q.q)}</summary>
+      <summary>${ok(x) ? '<span class="yes">✓</span>' : '<span class="no">✗</span>'} ${esc(x.q.q)}</summary>
       <ul>${x.order.map(oi => `<li class="${x.q.a.includes(oi) ? 'right' : x.pick.includes(oi) ? 'wrong' : ''}">${esc(x.q.o[oi])}</li>`).join('')}</ul>
       <p>${esc(x.q.x)}</p>
     </details>`).join('');
