@@ -1,11 +1,23 @@
 'use strict';
 const DOMAINS = {
-  1: { name: 'AI Fundamentals & Literacy', weight: 24 },
-  2: { name: 'AI Strategy & Business Value', weight: 28 },
-  3: { name: 'AI Governance & Responsible AI', weight: 24 },
-  4: { name: 'Business Readiness & Transformation', weight: 24 },
+  1: { name: 'AI Fundamentals and Literacy', weight: 24 },
+  2: { name: 'AI Strategy and Business Value Creation', weight: 28 },
+  3: { name: 'AI Governance and Responsible AI Leadership', weight: 24 },
+  4: { name: 'Business Readiness, Leadership, and AI Transformation', weight: 24 },
 };
-const MOCK = { count: 65, minutes: 130 };
+// Beta format (the standard exam's question count is not yet published).
+const MOCK = { count: 85, minutes: 170 };
+// Verified against the official AIB-C01 exam guide and certification page, 2026-09-28.
+const FACTS = `
+  <strong>Exam at a glance</strong>
+  <ul>
+    <li><b>Beta:</b> 85 questions, 170 minutes, USD 50. Delivery starts 29 Sep 2026. You can sit the beta only once.</li>
+    <li><b>Standard:</b> 130 minutes, USD 100. The question count isn't published yet.</li>
+    <li>Question types: multiple choice (1 correct) and multiple response (2+ correct; you must pick all of them to get credit).</li>
+    <li>Scaled score 100–1,000; <b>700 to pass</b>. Scoring is compensatory, so you don't need to pass each domain. There's no penalty for guessing, so answer every question.</li>
+    <li>AWS services appear only at a strategic level: Amazon Bedrock (pricing tiers, Guardrails, Knowledge Bases), Amazon SageMaker AI, Amazon Quick, AWS CAF, the shared responsibility model, Pricing Calculator, Cost Explorer, Marketplace, Savings Plans, and the Well-Architected Responsible AI Lens.</li>
+  </ul>
+  <a href="https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html" target="_blank" rel="noopener">Official exam guide ↗</a>`;
 const Q = window.QUESTIONS || [];
 const app = document.getElementById('app');
 const timerEl = document.getElementById('timer');
@@ -39,11 +51,11 @@ function home() {
       </button>`).join('')}
     </div>
     <div class="actions">
-      <button class="btn primary" data-go="mock">Mock exam · ${Math.min(MOCK.count, Q.length)} Q · ${MOCK.minutes} min</button>
+      <button class="btn primary" data-go="mock">Mock exam (beta format) · ${Math.min(MOCK.count, Q.length)} Q · ${MOCK.minutes} min</button>
       <button class="btn" data-go="all">Practice all (${Q.length}, shuffled)</button>
       <button class="btn" data-go="missed" ${missed.length ? '' : 'disabled'}>Review missed (${missed.length})</button>
     </div>
-    <div class="facts">${window.EXAM_FACTS || ''}</div>
+    <div class="facts">${FACTS}</div>
     <p class="muted" style="font-size:14px">Keys: <kbd>1</kbd>–<kbd>5</kbd> or <kbd>A</kbd>–<kbd>E</kbd> select · <kbd>Enter</kbd> check / next.</p>`;
 }
 
@@ -155,7 +167,7 @@ function results() {
     <h1>Results</h1>
     ${graded.length ? `
       <div class="score">${score}%</div>
-      <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ' The real exam reports a scaled score (100–1,000, pass 700), so treat a raw % here as a rough guide; aim for 80%+ before exam day.' : ''}</p>
+      <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ' The real exam reports a scaled score (100–1,000, pass 700) that is not a simple percentage, so treat this raw % as a rough guide and aim for 80%+.' : ''}</p>
       <div class="rows">${rows}</div>
       <div class="actions"><button class="btn primary" data-go="home">Home</button><button class="btn" data-go="missed">Review missed</button></div>
       <h2>Review</h2>${review}` : '<p class="muted">No questions answered.</p><div class="actions"><button class="btn primary" data-go="home">Home</button></div>'}`;
