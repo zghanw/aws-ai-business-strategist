@@ -31,6 +31,8 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 const same = (a, b) => a.length === b.length && a.every(x => b.includes(x));
 const pct = (n, d) => (d ? Math.round((100 * n) / d) : 0);
 const inDomain = d => Q.filter(q => q.d == d);
+// Stems are a scenario, a blank line, then the question, like the official practice set.
+const split = s => { const i = s.lastIndexOf('\n\n'); return i < 0 ? ['', s] : [s.slice(0, i), s.slice(i + 2)]; };
 
 let S = null; // active session
 let tick = null;
@@ -83,6 +85,7 @@ function start(mode, d) {
 function show() {
   const it = S.qs[S.i], q = it.q, mock = S.mode === 'mock';
   const reveal = !mock && it.done, ok = same(it.pick, q.a), last = S.i === S.qs.length - 1;
+  const [scenario, question] = split(q.q);
   const main = !mock && !it.done
     ? `<button class="btn primary" data-act="check" ${it.pick.length === q.a.length ? '' : 'disabled'}>Check</button>`
     : last ? `<button class="btn primary" data-act="finish">Finish</button>`
@@ -95,13 +98,14 @@ function show() {
       ${mock ? `<button class="link" data-act="flag">${it.flag ? '★ Flagged' : '☆ Flag for review'}</button>` : ''}
     </div>
     <div class="progress"><i style="width:${pct(S.i + 1, S.qs.length)}%"></i></div>
-    <h2>${esc(q.q)}</h2>
+    ${scenario ? `<p class="scenario">${esc(scenario)}</p>` : ''}
+    <h2>${esc(question)}</h2>
     <div class="opts">${it.order.map((oi, k) => {
       const picked = it.pick.includes(oi);
       const cls = [picked && 'picked', reveal && q.a.includes(oi) && 'right', reveal && picked && !q.a.includes(oi) && 'wrong'].filter(Boolean).join(' ');
-      return `<button class="opt ${cls}" data-act="pick" data-o="${oi}" ${reveal ? 'disabled' : ''}><span class="key">${'ABCDE'[k]}</span><span>${esc(q.o[oi])}</span></button>`;
+      return `<button class="opt ${cls}" data-act="pick" data-o="${oi}" ${reveal ? 'disabled' : ''}><span class="key">${'ABCDE'[k]}</span><span>${esc(q.o[oi])}${reveal ? `<span class="why">${esc(q.r[oi])}</span>` : ''}</span></button>`;
     }).join('')}</div>
-    ${reveal ? `<div class="explain ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Correct' : 'Incorrect'}</strong>${esc(q.x)}</div>` : ''}
+    ${reveal ? `<div class="explain ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Correct' : 'Incorrect'}</strong>${ok ? 'Read why each option is right or wrong above.' : 'The correct answer is marked in green. Each option shows why.'}</div>` : ''}
     <div class="nav">
       <button class="btn" data-act="prev" ${S.i ? '' : 'disabled'}>Back</button>
       ${main}
@@ -160,9 +164,8 @@ function results() {
   }).join('');
   const review = graded.map(x => `
     <details class="${ok(x) ? 'ok' : 'bad'}" ${ok(x) ? '' : 'open'}>
-      <summary>${ok(x) ? '<span class="yes">✓</span>' : '<span class="no">✗</span>'} ${esc(x.q.q)}</summary>
-      <ul>${x.order.map(oi => `<li class="${x.q.a.includes(oi) ? 'right' : x.pick.includes(oi) ? 'wrong' : ''}">${esc(x.q.o[oi])}</li>`).join('')}</ul>
-      <p>${esc(x.q.x)}</p>
+      <summary>${ok(x) ? '<span class="yes">✓</span>' : '<span class="no">✗</span>'} ${esc(x.q.q.replace(/\n\n/g, ' '))}</summary>
+      <ul>${x.order.map(oi => `<li class="${x.q.a.includes(oi) ? 'right' : x.pick.includes(oi) ? 'wrong' : ''}">${esc(x.q.o[oi])}<span class="why">${esc(x.q.r[oi])}</span></li>`).join('')}</ul>
     </details>`).join('');
   app.innerHTML = `
     <h1>Results</h1>

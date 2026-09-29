@@ -39,6 +39,9 @@ h2 { font-size: 20px; line-height: 1.4; margin: 16px 0; }
 .bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 14px; }
 .progress { height: 4px; background: var(--line); border-radius: 2px; margin: 10px 0 4px; overflow: hidden; }
 .progress i { display: block; height: 100%; background: var(--accent); }
+.scenario { margin: 18px 0 0; font-size: 17px; }
+.scenario + h2 { margin-top: 12px; }
+.why { display: block; margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .opts { display: flex; flex-direction: column; gap: 10px; }
 .opt { display: flex; gap: 12px; align-items: flex-start; text-align: left; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
 .opt:hover:not(:disabled) { border-color: var(--accent); }
@@ -73,7 +76,9 @@ summary .yes { color: var(--ok); }
 summary .no { color: var(--bad); }
 details ul { padding-left: 20px; }
 details li.right { color: var(--ok); font-weight: 600; }
-details li.wrong { color: var(--bad); text-decoration: line-through; }
+details li.wrong { color: var(--bad); }
+details li { margin: 8px 0; }
+details li .why { font-weight: 400; color: var(--muted); }
 .facts { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 14px 16px; font-size: 14px; }
 .facts ul { margin: 6px 0 10px; padding-left: 20px; }
 .facts a { color: var(--accent); font-weight: 600; }
