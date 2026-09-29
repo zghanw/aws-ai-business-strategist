@@ -56,6 +56,8 @@ The AIB-C01 beta opened on 29 September 2026, and AWS's official practice exam i
 
 Every question is original and written against the public [AIB-C01 exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html). None come from the real exam, paid courses, or dumps. Each explanation says why the right answer is right and why the tempting wrong ones are wrong.
 
+The questions were drafted with AI help, then checked one by one against the exam guide and AWS documentation.
+
 Question bank last reviewed: 29 September 2026.
 
 Think a question is wrong? [Open an issue](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose) with the question ID shown above each question. You don't need to write any code.
