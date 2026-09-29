@@ -14,7 +14,7 @@ const FACTS = `
     <li><b>Beta:</b> 85 questions, 170 minutes, USD 50. Delivery starts 29 Sep 2026. You can sit the beta only once.</li>
     <li><b>Standard:</b> 130 minutes, USD 100. The question count isn't published yet.</li>
     <li>Question types: multiple choice (1 correct) and multiple response (2+ correct; you must pick all of them to get credit).</li>
-    <li>Scaled score 100–1,000; <b>700 to pass</b>. Scoring is compensatory, so you don't need to pass each domain. There's no penalty for guessing, so answer every question.</li>
+    <li>Scaled score 100 to 1,000; <b>700 to pass</b>. Scoring is compensatory, so you don't need to pass each domain. There's no penalty for guessing, so answer every question.</li>
     <li>AWS services appear only at a strategic level: Amazon Bedrock (pricing tiers, Guardrails, Knowledge Bases), Amazon SageMaker AI, Amazon Quick, AWS CAF, the shared responsibility model, Pricing Calculator, Cost Explorer, Marketplace, Savings Plans, and the Well-Architected Responsible AI Lens.</li>
   </ul>
   <a href="https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html" target="_blank" rel="noopener">Official exam guide ↗</a>`;
@@ -56,7 +56,7 @@ function home() {
       <button class="btn" data-go="missed" ${missed.length ? '' : 'disabled'}>Review missed (${missed.length})</button>
     </div>
     <div class="facts">${FACTS}</div>
-    <p class="muted" style="font-size:14px">Keys: <kbd>1</kbd>–<kbd>5</kbd> or <kbd>A</kbd>–<kbd>E</kbd> select · <kbd>Enter</kbd> check / next.</p>`;
+    <p class="muted" style="font-size:14px">Keys: <kbd>1</kbd> to <kbd>5</kbd> or <kbd>A</kbd> to <kbd>E</kbd> select · <kbd>Enter</kbd> check / next.</p>`;
 }
 
 // Largest-remainder split so the mock mirrors domain weights exactly.
@@ -91,6 +91,7 @@ function show() {
     <div class="bar">
       <strong>${S.i + 1} / ${S.qs.length}</strong>
       <span class="tag">D${q.d} · ${DOMAINS[q.d].name}</span>
+      <span class="muted qid">#${q.id}</span>
       ${mock ? `<button class="link" data-act="flag">${it.flag ? '★ Flagged' : '☆ Flag for review'}</button>` : ''}
     </div>
     <div class="progress"><i style="width:${pct(S.i + 1, S.qs.length)}%"></i></div>
@@ -167,7 +168,7 @@ function results() {
     <h1>Results</h1>
     ${graded.length ? `
       <div class="score">${score}%</div>
-      <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ' The real exam reports a scaled score (100–1,000, pass 700) that is not a simple percentage, so treat this raw % as a rough guide and aim for 80%+.' : ''}</p>
+      <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ' The real exam reports a scaled score (100 to 1,000, pass 700) that is not a simple percentage, so treat this raw % as a rough guide and aim for 80%+.' : ''}</p>
       <div class="rows">${rows}</div>
       <div class="actions"><button class="btn primary" data-go="home">Home</button><button class="btn" data-go="missed">Review missed</button></div>
       <h2>Review</h2>${review}` : '<p class="muted">No questions answered.</p><div class="actions"><button class="btn primary" data-go="home">Home</button></div>'}`;

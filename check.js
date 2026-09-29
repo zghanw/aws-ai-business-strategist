@@ -14,6 +14,7 @@ for (const q of Q) {
   const tag = q.q.match(/\(Select (\w+)\.\)/);
   if (q.a.length > 1 ? tag?.[1] !== WORD[q.a.length] : tag) e('Select-N tag does not match answer count');
   if (/\b(option|answer|choice) [A-F]\b/i.test(q.x)) e('explanation refers to an option letter (options are shuffled)');
+  if (/[–—]/.test(q.q + q.x + q.o.join(''))) e('contains an en or em dash; use commas, colons or parentheses');
 }
 const by = [1, 2, 3, 4].map(d => Q.filter(q => q.d === d).length);
 console.log(`${Q.length} questions · by domain ${by.join(' / ')} · multi-select ${Q.filter(q => q.a.length > 1).length}`);

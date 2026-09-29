@@ -1,0 +1,31 @@
+name: Report a problem with a question
+description: Wrong answer, unclear wording, or an outdated fact
+labels: ["question-fix"]
+body:
+  - type: input
+    id: qid
+    attributes:
+      label: Question ID
+      description: Shown next to the domain name above each question, for example d2-14.
+      placeholder: d2-14
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What's wrong?
+      options:
+        - The marked answer is wrong
+        - More than one answer could be right
+        - The wording is unclear
+        - A fact is outdated
+        - Typo or formatting
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What should it say instead? Link a source (the exam guide or AWS docs) if you can.
+    validations:
+      required: true

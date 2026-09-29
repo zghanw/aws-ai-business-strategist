@@ -1,0 +1,32 @@
+name: Suggest a question
+description: Propose an original practice question
+labels: ["new-question"]
+body:
+  - type: markdown
+    attributes:
+      value: "Please write the question yourself. Real exam questions and content from paid practice tests can't be accepted."
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Exam domain
+      options:
+        - "1: AI Fundamentals and Literacy"
+        - "2: AI Strategy and Business Value Creation"
+        - "3: AI Governance and Responsible AI Leadership"
+        - "4: Business Readiness, Leadership, and AI Transformation"
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question and options
+      description: The scenario, the question, and four or five options. Mark the correct one(s).
+    validations:
+      required: true
+  - type: textarea
+    id: explanation
+    attributes:
+      label: Explanation and source
+      description: Why the answer is right, why the others are wrong, and a link to the exam guide or AWS docs.
+    validations:
+      required: true
