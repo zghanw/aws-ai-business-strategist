@@ -16,7 +16,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d1-02", d: 1,
   q: "A bank has five years of transaction records. Each record is labeled as fraudulent or legitimate. The bank wants a system that flags likely fraud on new transactions as they occur.\n\nWhich type of machine learning (ML) is MOST appropriate for this requirement?",
-  o: ["Supervised learning that trains a classification model on the labeled transactions",
+  o: ["Supervised learning that trains a classification model on the bank's labeled transactions",
       "Unsupervised learning that groups transactions into clusters with similar patterns",
       "Reinforcement learning that rewards the model for each transaction that it blocks",
       "Generative AI that produces synthetic transactions to model normal account behavior"],
@@ -288,7 +288,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d1-25", d: 1,
   q: "A retailer has five years of weekly unit sales for each store. The retailer wants to predict next quarter's unit sales for each store. A team member suggests using a generative AI (GenAI) chatbot for the task.\n\nWhich approach is MOST appropriate?",
-  o: ["Train a machine learning (ML) time-series forecasting model on the sales history.",
+  o: ["Train a machine learning (ML) time-series forecasting model on the five-year sales history.",
       "Prompt a GenAI chatbot with the sales history, and ask it to estimate the numbers.",
       "Apply a fixed 5% growth rate to last quarter's unit sales for every store.",
       "Use a GenAI image model to generate charts of expected sales for each store."],
@@ -409,7 +409,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d1-35", d: 1,
   q: "A retailer designs an AI solution for customer requests. One agent receives each request and breaks it into subtasks. The agent delegates the subtasks to specialized agents for billing, shipping, and returns. The first agent then combines their results into one reply.\n\nWhich agent capability does this design demonstrate?",
-  o: ["Multi-agent orchestration with agent-to-agent communication",
+  o: ["Multi-agent orchestration that uses agent-to-agent communication",
       "Retrieval-augmented generation (RAG) over billing documents",
       "Fine-tuning of one model for billing, shipping, and returns",
       "Rule-based routing of requests to three human support queues"],

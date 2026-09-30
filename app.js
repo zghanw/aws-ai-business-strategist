@@ -44,7 +44,7 @@ function home() {
   const best = store.get('best', {});
   app.innerHTML = `
     <h1>AWS Certified AI Business Strategist</h1>
-    <p class="muted">Exam-style scenario questions for AIB-C01, grouped by the four exam domains. Every answer comes with an explanation. Progress is saved in this browser.</p>
+    <p class="muted">Exam-style scenario questions for AIB-C01, grouped by the four exam domains. Every option comes with a rationale. Progress is saved in this browser.</p>
     <div class="grid">${Object.entries(DOMAINS).map(([d, m]) => `
       <button class="card" data-go="domain" data-d="${d}">
         <span class="tag">Domain ${d} · ${m.weight}%</span>

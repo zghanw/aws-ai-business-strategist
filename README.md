@@ -3,7 +3,7 @@
 # AIB-C01 Practice
 
 Free practice questions and a timed mock exam for the **AWS Certified AI Business Strategist (AIB-C01)** exam.<br>
-146 original scenario questions, an explanation for every answer, no signup, no ads.
+146 original scenario questions, a rationale for every option, no signup, no ads.
 
 **[Start practicing](https://zghanw.github.io/aws-ai-business-strategist/)** · [Report a wrong answer](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose) · [Contribute a question](CONTRIBUTING.md)
 
@@ -35,7 +35,7 @@ The AIB-C01 beta opened on 29 September 2026, and AWS's official practice exam i
 | 3. AI Governance and Responsible AI Leadership | 24% | 36 |
 | 4. Business Readiness, Leadership, and AI Transformation | 24% | 34 |
 
-- Practice one domain at a time and read the explanation right after each answer.
+- Practice one domain at a time. After each answer, every option shows why it's right or wrong.
 - Take a mock exam in the beta format: 85 questions in 170 minutes, split by the official domain weights.
 - Get both multiple-choice and multiple-response questions, like the real exam.
 - Come back to the questions you missed. They're saved in your browser.
@@ -54,7 +54,7 @@ The AIB-C01 beta opened on 29 September 2026, and AWS's official practice exam i
 
 ## How the questions are written
 
-Every question is original and written against the public [AIB-C01 exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html). None come from the real exam, paid courses, or dumps. Each explanation says why the right answer is right and why the tempting wrong ones are wrong.
+Every question is original and written against the public [AIB-C01 exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html). None come from the real exam, paid courses, or dumps. They follow the style of AWS's official practice questions: a short scenario, a clear requirement, and options of similar length where every wrong answer is a plausible practice that fails one requirement. The right answer is not the longest option, and `check.js` enforces that on every change.
 
 The questions were drafted with AI help, then checked one by one against the exam guide and AWS documentation.
 

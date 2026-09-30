@@ -20,7 +20,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d3-03", d: 3,
   q: "A retailer launches an AI chat assistant on its website. Customers complain that they did not realize they were talking to an AI system. Some customers made decisions based on the assistant's answers without knowing its limitations.\n\nWhich action BEST addresses this issue?",
-  o: ["Disclose that the assistant is AI, state its limitations, and offer a human option.",
+  o: ["Disclose that the assistant is AI, state its limitations, and offer a path to a human.",
       "Fine-tune the assistant so that its replies sound more like the retailer's staff.",
       "Add a content filter that blocks the assistant from discussing competitor products.",
       "Increase the assistant's accuracy by adding more product data to its knowledge base."],
@@ -243,7 +243,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d3-22", d: 3,
   q: "A pharmacy app's generative AI (GenAI) assistant sometimes suggests medication combinations that could harm patients. The pharmacy wants to prevent these outputs.\n\nWhich responsible AI dimension is MOST directly at risk, and which control addresses it?",
-  o: ["Safety; restrict the scope, add guardrails, and require pharmacist review",
+  o: ["Safety; restrict the scope, add guardrails, and require review by a pharmacist",
       "Transparency; add a notice that the assistant uses AI to write its answers",
       "Fairness; compare the assistant's suggestions across patient age groups",
       "Controllability; let patients adjust the assistant's temperature setting"],

@@ -23,15 +23,16 @@ for (const q of Q) {
   // Length tell: the right answer must not stand out by being longer.
   const L = q.o.map(s => s.length), right = mean(q.a.map(i => L[i])), wrong = mean(L.filter((_, i) => !q.a.includes(i)));
   ratios.push(right / wrong);
-  if (right / wrong > 1.4) e(`correct option is ${(right / wrong).toFixed(2)}x the length of the distractors (max 1.4x)`);
+  // Short labels ("Scale" vs "Experiment") can't signal much, so only flag gaps a reader would notice.
+  if (right / wrong > 1.4 && right - wrong > 12) e(`correct option is ${(right / wrong).toFixed(2)}x the length of the distractors (max 1.4x)`);
   if (q.a.length === 1) { single++; if (L.filter(x => x === Math.max(...L)).length === 1 && L[q.a[0]] === Math.max(...L)) longest++; }
 }
 const by = [1, 2, 3, 4].map(d => Q.filter(q => q.d === d).length);
 const share = longest / single, ratio = mean(ratios);
 console.log(`${Q.length} questions · by domain ${by.join(' / ')} · multi-select ${Q.filter(q => q.a.length > 1).length}`);
 console.log(`correct option is the longest in ${Math.round(100 * share)}% of single-answer questions · average length ratio ${ratio.toFixed(2)}x`);
-// ponytail: 4 options means a random position is longest 25% of the time; allow a little noise.
-if (share > 0.32) errs.push(`bias: correct option is the longest in ${Math.round(100 * share)}% of single-answer questions (max 32%)`);
+// ponytail: with 4 options the longest is right 25% of the time by chance. Too high or too low is a tell.
+if (share > 0.32 || share < 0.15) errs.push(`bias: correct option is the longest in ${Math.round(100 * share)}% of single-answer questions (keep it between 15% and 32%)`);
 if (ratio > 1.12) errs.push(`bias: correct options average ${ratio.toFixed(2)}x the length of distractors (max 1.12x)`);
 if (errs.length) { console.error(errs.join('\n')); process.exit(1); }
 console.log('OK');

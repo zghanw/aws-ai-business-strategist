@@ -257,7 +257,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d2-23", d: 2,
   q: "A retailer and its competitors can all access the same foundation models through cloud services. The retailer wants its AI investments to create an advantage that competitors cannot easily copy.\n\nWhich source is MOST likely to create a sustainable competitive advantage?",
-  o: ["Proprietary data built into the retailer's unique workflows and processes",
+  o: ["Proprietary data built into the retailer's unique workflows and core processes",
       "Early access to the most popular foundation model through a cloud provider",
       "Use of the foundation model that has the largest number of parameters",
       "Frequent press releases that describe the retailer's AI initiatives"],
@@ -364,7 +364,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d2-32", d: 2,
   q: "A company's IT department drafted an AI strategy on its own. The strategy lists AI tools to adopt but does not reference the company's strategic objectives.\n\nHow should the company revise the AI strategy?",
-  o: ["Tie each AI initiative to a strategic objective, and rank by business outcome.",
+  o: ["Tie each AI initiative to a strategic objective, and rank each by its business outcome.",
       "Keep the strategy with IT, and communicate the tool list to the business units.",
       "Expand the tool list so that every department receives at least one AI tool.",
       "Benchmark the tool list against the tools that competitors have adopted."],
@@ -403,7 +403,7 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 { id: "d2-35", d: 2,
   q: "An executive wants to approve an AI project because the proof of concept (POC) worked technically. No one has estimated full costs, adoption, or data readiness for production.\n\nWhy is the technical result alone insufficient for approval?",
   o: ["A technically successful POC guarantees a positive return on investment (ROI).",
-      "A solution can work technically yet fail on cost, adoption, risk, or data readiness.",
+      "A solution can work technically yet still fail on cost, adoption, risk, or data readiness.",
       "A POC cannot show whether a solution is technically feasible at any scale.",
       "Only the model's accuracy score matters, and the POC did not report an accuracy score."],
   a: [1],
