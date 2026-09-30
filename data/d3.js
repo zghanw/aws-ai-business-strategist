@@ -11,12 +11,12 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d3-02", d: 3,
   q: "An insurer's AI model recommends denying some health insurance claims. Regulators require the insurer to give each customer the specific reasons for a denial. Adjusters currently cannot see why the model recommends a denial.\n\nWhich responsible AI dimension must the insurer address FIRST?",
-  o: ["Explainability", "Fairness", "Robustness", "Privacy"],
+  o: ["Explainability", "Transparency", "Controllability", "Privacy and security"],
   a: [0],
   r: ["Explainability means that stakeholders can understand why a system produced an output. The insurer must give specific reasons for denials, but adjusters cannot see why the model recommends them. Therefore, explainability is the gap to address.",
-      "Fairness concerns unequal outcomes across groups. The scenario does not describe different outcomes by group. The requirement is to explain individual decisions.",
-      "Robustness concerns reliable behavior under unexpected or adversarial inputs. The scenario describes a missing explanation, not unreliable behavior.",
-      "Privacy concerns the protection of personal data. Protecting claim data does not produce the reasons that the regulation requires."] },
+      "Transparency tells customers that AI is used and what its limitations are. The regulation requires the specific reasons for each denial, which general disclosure does not provide.",
+      "Controllability is the ability to monitor and steer a system's behavior. Adjusters need to understand individual decisions, not to pause or override the model.",
+      "Privacy and security concern protecting personal data and systems. Protecting claim data does not produce the reasons that the regulation requires."] },
 
 { id: "d3-03", d: 3,
   q: "A retailer launches an AI chat assistant on its website. Customers complain that they did not realize they were talking to an AI system. Some customers made decisions based on the assistant's answers without knowing its limitations.\n\nWhich action BEST addresses this issue?",
@@ -165,11 +165,11 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d3-15", d: 3,
   q: "A financial services firm uses retrieval-augmented generation (RAG) for an advisor assistant. The firm is concerned that some answers are not supported by the documents that the assistant retrieved.\n\nWhich Amazon Bedrock Guardrails capability MOST directly addresses this concern?",
-  o: ["Contextual grounding checks", "Denied topics", "Word filters", "Sensitive information filters"],
+  o: ["Contextual grounding checks", "Denied topics", "Content filters for prompt attacks", "Sensitive information filters"],
   a: [0],
   r: ["Contextual grounding checks evaluate whether a response is grounded in the source content and relevant to the query. They help filter hallucinated answers in RAG applications.",
       "Denied topics block entire subject areas. They do not check whether an answer matches the retrieved documents.",
-      "Word filters block specific words or phrases. They cannot judge whether an answer is supported by a source.",
+      "Content filters with the prompt attack category detect attempts to override the model's instructions. They do not check whether an answer matches the retrieved documents.",
       "Sensitive information filters block or mask personal data. They do not check answers against retrieved documents."] },
 
 { id: "d3-16", d: 3,
@@ -311,12 +311,12 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d3-28", d: 3,
   q: "A company's AI agent handles supplier orders. Operations managers want dashboards that show the agent's actions and the ability to pause the agent or override its decisions at any time.\n\nWhich responsible AI dimension do these requirements address?",
-  o: ["Controllability", "Fairness", "Transparency", "Privacy"],
+  o: ["Controllability", "Veracity and robustness", "Transparency", "Privacy and security"],
   a: [0],
   r: ["Controllability means having mechanisms to monitor and steer an AI system's behavior. Dashboards, pause controls, and overrides give managers that ability. AWS lists controllability as a responsible AI dimension.",
-      "Fairness concerns unequal outcomes across groups. The requirements are about monitoring and intervening, not about outcomes by group.",
+      "Veracity and robustness concern correct outputs, even with unexpected or adversarial inputs. The requirements are about monitoring and intervening, not about output correctness.",
       "Transparency helps stakeholders understand that AI is used and what its limitations are. The ability to pause and override goes beyond disclosure.",
-      "Privacy concerns protecting personal data. The requirements do not involve personal data."] },
+      "Privacy and security concern protecting data and models. The requirements do not involve protecting data."] },
 
 { id: "d3-29", d: 3,
   q: "A company wants to use customer support transcripts to evaluate and improve a generative AI (GenAI) solution. The transcripts contain names, account numbers, and home addresses.\n\nWhich approach BEST protects privacy while preserving the data's value?",
@@ -394,12 +394,12 @@ window.QUESTIONS = (window.QUESTIONS || []).concat([
 
 { id: "d3-35", d: 3,
   q: "An insurer's generative AI (GenAI) assistant tells customers whether they qualify for coverage. The eligibility rules are precise and documented. The insurer wants a logic-based check that each response is consistent with those rules.\n\nWhich Amazon Bedrock Guardrails capability fits BEST?",
-  o: ["Automated Reasoning checks", "Word filters", "Denied topics", "Content filters"],
+  o: ["Automated Reasoning checks", "Contextual grounding checks", "Denied topics", "Sensitive information filters"],
   a: [0],
   r: ["Automated Reasoning checks validate responses against formally defined logical rules, such as eligibility policies. They flag unsupported statements and can suggest corrections.",
-      "Word filters block specific terms. They cannot check whether a response follows eligibility rules.",
+      "Contextual grounding checks compare a response with reference content and the user's query to detect ungrounded or irrelevant answers. They do not apply formal logical rules, which is what the insurer wants.",
       "Denied topics block whole subject areas. Blocking eligibility questions would stop the assistant from doing its job.",
-      "Content filters detect harmful categories such as hate or violence. They do not verify logical consistency with business rules."] },
+      "Sensitive information filters block or mask personal data. They do not verify whether a response follows eligibility rules."] },
 
 { id: "d3-36", d: 3,
   q: "After an AI incident at a competitor, a risk committee proposes human review of 100% of AI outputs across the company. The proposal includes low-risk internal drafting tools. Business teams say that the proposal would remove most of the productivity benefit.\n\nWhich response is MOST appropriate?",
