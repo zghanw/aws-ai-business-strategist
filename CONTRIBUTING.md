@@ -37,7 +37,7 @@ The questions follow the style of AWS's official practice questions, so practice
 Questions live in `data/d1.js` to `data/d4.js`, one file per exam domain:
 
 ```js
-{ id: "d2-42", d: 2,
+{ id: "d2-86", d: 2,
   q: "Scenario sentences.\n\nWhich approach will meet these requirements?",
   o: ["Option", "Option", "Option", "Option"],
   a: [1],

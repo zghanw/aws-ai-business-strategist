@@ -3,7 +3,7 @@
 # AIB-C01 Practice
 
 Free practice questions and a timed mock exam for the **AWS Certified AI Business Strategist (AIB-C01)** exam.<br>
-146 original scenario questions, a rationale for every option, no signup, no ads.
+340 original scenario questions, 85 for each domain, a rationale for every option, no signup, no ads.
 
 **[Start practicing](https://zghanw.github.io/aws-ai-business-strategist/)** · [Report a wrong answer](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose) · [Contribute a question](CONTRIBUTING.md)
 
@@ -24,16 +24,16 @@ Free practice questions and a timed mock exam for the **AWS Certified AI Busines
 
 ## Why this exists
 
-The AIB-C01 beta opened on 29 September 2026, and AWS's official practice exam isn't available while the exam is in beta. The free official question set has 20 questions. This site adds 146 more in the same scenario style: business judgment calls, not service trivia.
+The AIB-C01 beta opened on 29 September 2026, and AWS's official practice exam isn't available while the exam is in beta. The free official question set has 20 questions. This site adds 340 more in the same scenario style: business judgment calls, not service trivia.
 
 ## What's inside
 
 | Domain | Exam weight | Questions |
 |---|---:|---:|
-| 1. AI Fundamentals and Literacy | 24% | 35 |
-| 2. AI Strategy and Business Value Creation | 28% | 41 |
-| 3. AI Governance and Responsible AI Leadership | 24% | 36 |
-| 4. Business Readiness, Leadership, and AI Transformation | 24% | 34 |
+| 1. AI Fundamentals and Literacy | 24% | 85 |
+| 2. AI Strategy and Business Value Creation | 28% | 85 |
+| 3. AI Governance and Responsible AI Leadership | 24% | 85 |
+| 4. Business Readiness, Leadership, and AI Transformation | 24% | 85 |
 
 - Practice one domain at a time. After each answer, every option shows why it's right or wrong.
 - Take a mock exam in the beta format: 85 questions in 170 minutes, split by the official domain weights.
@@ -58,7 +58,7 @@ Every question is original and written against the public [AIB-C01 exam guide](h
 
 The questions were drafted with AI help, then checked one by one against the exam guide and AWS documentation.
 
-Question bank last reviewed: 29 September 2026.
+Question bank last reviewed: 30 September 2026.
 
 Think a question is wrong? [Open an issue](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose) with the question ID shown above each question. You don't need to write any code.
 
@@ -76,7 +76,7 @@ Then open http://localhost:8000. Run `node check.js` to validate the question ba
 
 ## Contributing
 
-Questions live in `data/d1.js` to `data/d4.js`, one file per domain. [CONTRIBUTING.md](CONTRIBUTING.md) covers the format and the ground rules. Issues labeled [good first issue](https://github.com/zghanw/aws-ai-business-strategist/labels/good%20first%20issue) are a good place to start.
+Questions live in `data/d1.js` to `data/d4.js`, one file per domain. [CONTRIBUTING.md](CONTRIBUTING.md) covers the format and the ground rules. To suggest a question or report a wrong one, use the [issue forms](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose).
 
 If this helped you prepare, a star helps other candidates find it.
 
