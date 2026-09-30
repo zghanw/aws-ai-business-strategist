@@ -62,6 +62,12 @@ Question bank last reviewed: 30 September 2026.
 
 Think a question is wrong? [Open an issue](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose) with the question ID shown above each question. You don't need to write any code.
 
+## Official resources
+
+- [AIB-C01 Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html)
+- [AWS AI Business Strategist](https://aws.amazon.com/certification/certified-ai-business-strategist/)
+- [AWS Skill Builder](https://skillbuilder.aws/)
+
 ## Run it locally
 
 It's a static site with no build step and no dependencies.
