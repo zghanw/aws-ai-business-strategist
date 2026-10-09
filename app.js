@@ -37,6 +37,15 @@ const split = s => { const i = s.lastIndexOf('\n\n'); return i < 0 ? ['', s] : [
 let S = null; // active session
 let tick = null;
 
+// New content slides in the way you moved (Next from the right, Back from the left); reduced motion gets a fade.
+// It starts from whatever is on screen, so rapid Next presses don't strobe back to blank.
+const calm = matchMedia('(prefers-reduced-motion: reduce)');
+function enter(dx = 0) {
+  const o = app.getAnimations().length ? +getComputedStyle(app).opacity : 0, k = calm.matches ? 0 : 1 - o;
+  app.getAnimations().forEach(a => a.cancel());
+  app.animate([{ opacity: o, transform: dx ? `translateX(${dx * k}px)` : `translateY(${6 * k}px)` }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.2, .8, .2, 1)' });
+}
+
 // While a session runs, the page hides the nav and puts the timer and end button in the header.
 function session(on) {
   document.body.classList.toggle('session', on);
@@ -133,10 +142,13 @@ function start(mode, d) {
   session(true);
   if (mode === 'mock') startTimer(MOCK.minutes * 60);
   show();
+  enter();
   scrollTo(0, 0);
 }
 
 function show() {
+  const again = S.last === S.i, f = [...app.querySelectorAll('button')].indexOf(document.activeElement);
+  S.last = S.i;
   const it = S.qs[S.i], q = it.q, mock = S.mode === 'mock';
   const reveal = !mock && it.done, ok = same(it.pick, q.a), last = S.i === S.qs.length - 1;
   const [scenario, question] = split(q.q);
@@ -155,10 +167,10 @@ function show() {
     <div class="progress"><i style="width:${pct(S.i + 1, S.qs.length)}%"></i></div>
     ${scenario ? `<p class="scenario">${esc(scenario)}</p>` : ''}
     <h2>${esc(question)}</h2>
-    <div class="opts">${it.order.map((oi, k) => {
+    <div class="opts${q.a.length > 1 ? ' multi' : ''}">${it.order.map((oi, k) => {
       const picked = it.pick.includes(oi);
       const cls = [picked && 'picked', reveal && q.a.includes(oi) && 'right', reveal && picked && !q.a.includes(oi) && 'wrong'].filter(Boolean).join(' ');
-      return `<button class="opt ${cls}" data-act="pick" data-o="${oi}" ${reveal ? 'disabled' : ''}><span class="key">${'ABCDE'[k]}</span><span>${esc(q.o[oi])}${reveal ? `<span class="why">${esc(q.r[oi])}</span>` : ''}</span></button>`;
+      return `<button class="opt ${cls}" data-act="pick" data-o="${oi}" aria-pressed="${picked}" ${reveal ? 'disabled' : ''}><span class="key">${'ABCDE'[k]}</span><span>${esc(q.o[oi])}${reveal ? `<span class="why">${esc(q.r[oi])}</span>` : ''}</span></button>`;
     }).join('')}</div>
     ${reveal ? `<div class="explain ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Correct' : 'Incorrect'}</strong>${ok ? 'Read why each option is right or wrong above.' : 'The correct answer is marked in green. Each option shows why.'}</div>` : ''}
     <div class="nav">
@@ -168,7 +180,11 @@ function show() {
     <p class="keys muted">Keys: <kbd>1</kbd> to <kbd>5</kbd> or <kbd>A</kbd> to <kbd>E</kbd> select · <kbd>Enter</kbd> check / next</p>
     ${mock ? `<details class="pal" ${innerWidth > 520 ? 'open' : ''}><summary>All questions (answered ${answered}/${S.qs.length}, flagged ${flagged})</summary>
       <div class="palette">${S.qs.map((x, i) => `<button data-act="jump" data-i="${i}" class="${[x.pick.length && 'ans', x.flag && 'flag', i === S.i && 'cur'].filter(Boolean).join(' ')}">${i + 1}</button>`).join('')}</div></details>` : ''}`;
+  // Re-rendering the same question keeps keyboard focus where it was (Check hands it to Next).
+  if (again && f >= 0) app.querySelectorAll('button')[f]?.focus({ preventScroll: true });
 }
+
+function move(i) { const dx = Math.sign(i - S.i) * 24; S.i = i; show(); enter(dx); scrollTo(0, 0); }
 
 function pick(oi) {
   const it = S.qs[S.i], need = it.q.a.length;
@@ -235,6 +251,7 @@ function results() {
       <div class="rows">${rows}</div>
       <div class="actions">${actions}</div>
       <h2>Review</h2>${review}` : `<p class="muted">No questions answered.</p><div class="actions">${actions}</div>`}`;
+  enter();
   scrollTo(0, 0);
 }
 
@@ -256,6 +273,7 @@ const VIEWS = { '#/mock': lobby, '#/info': info };
 function route() {
   const h = VIEWS[location.hash] ? location.hash : '#/';
   (VIEWS[h] || home)();
+  enter();
   for (const a of document.querySelectorAll('header nav a')) a.getAttribute('href') === h ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
   scrollTo(0, 0);
 }
@@ -274,7 +292,7 @@ document.addEventListener('click', e => {
   const a = act.dataset.act;
   if (a === 'pick') pick(+act.dataset.o);
   else if (a === 'check') check();
-  else if (a === 'next' || a === 'prev' || a === 'jump') { S.i = a === 'jump' ? +act.dataset.i : S.i + (a === 'next' ? 1 : -1); show(); scrollTo(0, 0); }
+  else if (a === 'next' || a === 'prev' || a === 'jump') move(a === 'jump' ? +act.dataset.i : S.i + (a === 'next' ? 1 : -1));
   else if (a === 'flag') { S.qs[S.i].flag = !S.qs[S.i].flag; show(); }
   else if (a === 'finish') finish();
 });
@@ -287,8 +305,11 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'Enter') {
     e.preventDefault();
     if (S.mode !== 'mock' && !it.done) check();
-    else if (S.i < S.qs.length - 1) { S.i++; show(); scrollTo(0, 0); }
+    else if (S.i < S.qs.length - 1) move(S.i + 1);
   }
 });
+
+// ponytail: iOS Safari only shows :active press states when some touch listener exists.
+document.addEventListener('touchstart', () => {}, { passive: true });
 
 route();
