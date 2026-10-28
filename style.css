@@ -22,7 +22,8 @@ button, a { touch-action: manipulation; }
 /* Translucent bar: content scrolls under it instead of being cut off by an opaque strip. */
 header { display: flex; align-items: center; gap: 8px 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--glass); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); position: sticky; top: 0; z-index: 2; }
 header a { color: var(--ink); text-decoration: none; font-weight: 700; }
-.brand { margin-right: 8px; letter-spacing: -.01em; }
+.brand { display: flex; align-items: center; margin-right: 8px; letter-spacing: -.01em; }
+.brand img { margin-right: 8px; }
 .brand span { color: var(--accent); }
 header nav { display: flex; gap: 4px; }
 header nav a { padding: 6px 12px; border-radius: 980px; color: var(--muted); font-weight: 600; font-size: .9375rem; transition: color .15s, background-color .15s; }

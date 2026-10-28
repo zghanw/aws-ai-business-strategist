@@ -1,5 +1,10 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/logo-readme-dark.png">
+  <img alt="AIB-C01 Practice logo" src="docs/logo-readme.png" width="200">
+</picture>
+
 # AIB-C01 Practice
 
 Free practice questions and a timed mock exam for the **AWS Certified AI Business Strategist (AIB-C01)** exam.<br>
@@ -66,7 +71,7 @@ Think a question is wrong? [Open an issue](https://github.com/zghanw/aws-ai-busi
 
 - [AIB-C01 Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html)
 - [AWS AI Business Strategist](https://aws.amazon.com/certification/certified-ai-business-strategist/)
-- [AWS Skill Builder](https://skillbuilder.aws/)
+- [Exam Prep Plan: AWS Certified AI Business Strategist (AIB-C01)](https://skillbuilder.aws/learning-plan/B8J6KKJ45C/exam-prep-plan--aws-certified-ai-business-strategist-aibc01--english/KQ8WMK8CTE) on AWS Skill Builder
 
 ## Run it locally
 
