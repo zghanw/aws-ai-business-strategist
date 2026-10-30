@@ -20,6 +20,7 @@ const Q = window.QUESTIONS || [];
 const app = document.getElementById('app');
 const timerEl = document.getElementById('timer');
 const endBtn = document.getElementById('end');
+const themeBtn = document.getElementById('theme');
 
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem('aib:' + k)) ?? d; } catch { return d; } },
@@ -33,6 +34,18 @@ const inDomain = d => Q.filter(q => q.d == d);
 const missedIds = () => store.get('missed', []).filter(id => Q.some(q => q.id === id));
 // Stems are a scenario, a blank line, then the question, like the official practice set.
 const split = s => { const i = s.lastIndexOf('\n\n'); return i < 0 ? ['', s] : [s.slice(0, i), s.slice(i + 2)]; };
+
+// The body follows the system theme until the reader picks one with the header button, which is then remembered.
+function paint(dark, fade) {
+  const root = document.documentElement;
+  if (fade) { root.classList.add('theming'); setTimeout(() => root.classList.remove('theming'), 300); }
+  root.dataset.theme = dark ? 'dark' : 'light';
+  themeBtn.setAttribute('aria-pressed', dark);
+  themeBtn.title = dark ? 'Switch to light theme' : 'Switch to dark theme';
+}
+paint(document.documentElement.dataset.theme === 'dark');
+themeBtn.addEventListener('click', () => { const dark = themeBtn.getAttribute('aria-pressed') !== 'true'; store.set('theme', dark ? 'dark' : 'light'); paint(dark, true); });
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => { if (!store.get('theme')) paint(e.matches, true); });
 
 let S = null; // active session
 let tick = null;
@@ -298,7 +311,7 @@ document.addEventListener('click', e => {
 });
 
 document.addEventListener('keydown', e => {
-  if (!S || S.view !== 'quiz' || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (!S || S.view !== 'quiz' || e.ctrlKey || e.metaKey || e.altKey || e.target.closest('header')) return;
   const it = S.qs[S.i];
   const k = e.key.toLowerCase(), idx = /^[1-5]$/.test(k) ? +k - 1 : /^[a-e]$/.test(k) ? k.charCodeAt(0) - 97 : -1;
   if (idx >= 0 && idx < it.order.length) pick(it.order[idx]);

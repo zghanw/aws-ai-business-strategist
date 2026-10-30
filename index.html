@@ -11,7 +11,9 @@
 <meta property="og:url" content="https://zghanw.github.io/aws-ai-business-strategist/">
 <meta property="og:image" content="https://zghanw.github.io/aws-ai-business-strategist/docs/social-preview.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#15191f">
 <link rel="icon" href="docs/logo.png">
+<script>{ let t; try { t = JSON.parse(localStorage.getItem('aib:theme')); } catch {} document.documentElement.dataset.theme = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +22,10 @@
   <nav aria-label="Main"><a href="#/">Practice</a><a href="#/mock">Mock exam</a><a href="#/info">Exam info</a></nav>
   <span id="timer" aria-live="off"></span>
   <button class="btn" id="end" data-act="finish" hidden></button>
+  <button class="icon" id="theme" type="button" aria-label="Dark theme" aria-pressed="false">
+    <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  </button>
   <a class="gh" href="https://github.com/zghanw/aws-ai-business-strategist" target="_blank" rel="noopener" aria-label="Star on GitHub">★<span> Star on GitHub</span></a>
 </header>
 <main id="app"></main>
