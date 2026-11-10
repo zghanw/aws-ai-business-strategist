@@ -2,7 +2,7 @@
 
 Thanks for helping other people pass AIB-C01. The most useful contributions are:
 
-1. **Fixing a question.** Wrong answer, unclear wording, or a fact that has changed.
+1. **Fixing a question.** Wrong answer, unclear wording, or a fact that has changed. AWS ships changes often, so this matters a lot.
 2. **Adding a question** for an exam skill that has few questions.
 3. **Reporting a bug** in the quiz itself.
 
@@ -14,6 +14,8 @@ You don't need to write code for the first two. Opening an issue is enough.
 - **Don't copy from paid practice tests, dumps, or courses.** Original wording only.
 - **Tie it to the exam guide.** Each question should test a skill listed in the [official AIB-C01 exam guide](https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html). Link your source for any fact.
 - **Test judgment, not trivia.** The real exam is scenario-based and strategic. Ask what a business leader should do, not how to configure a service.
+- **Test the standard answer first.** Make a recently launched feature the right answer only if the exam guide names it. Otherwise, test the long-standing approach and mention the newer option in the rationale. Don't add a condition whose only purpose is to rule out the standard answer.
+- **Keep it current.** Don't make a deprecated feature or a service that is closed to new customers the right answer.
 - **Explain every option.** Each option gets its own rationale: why it's right, or which requirement it fails.
 
 ## Writing style
@@ -26,6 +28,7 @@ The questions follow the style of AWS's official practice questions, so practice
 
 **The options.** This is where most practice tests go wrong.
 
+- Multiple choice has exactly 4 options. Multiple response has 5 options with 2 correct, like the real exam.
 - Write all options in the same form: all imperatives, all noun phrases, or all "A model that..."
 - Keep them about the same length. The right answer must not be the longest, the most detailed, or the most carefully hedged. `node check.js` fails the build if right answers stand out by length.
 - Every wrong option should be a real practice that fails one requirement in the scenario, for example one that is reactive instead of preventive, too broad in scope, done in the wrong order, or overly restrictive. No joke options.
@@ -34,7 +37,7 @@ The questions follow the style of AWS's official practice questions, so practice
 
 ## Question format
 
-Questions live in `data/d1.js` to `data/d4.js`, one file per exam domain:
+Questions live in `data/d1.js` to `data/d4.js`, one file per exam domain. Exam details such as the domain names and weights live in `exam.js`, and `app.js`, `check.js` and `style.css` are shared with the other practice sites.
 
 ```js
 { id: "d2-86", d: 2,
@@ -59,6 +62,6 @@ Run the data check. It needs Node.js and nothing else:
 node check.js
 ```
 
-It catches duplicate IDs, bad answer indexes, missing rationales, a missing `(Select TWO.)` tag, dashes, and answer-length bias. CI runs the same check on every pull request.
+It catches duplicate IDs, bad answer indexes, the wrong number of options, missing rationales, a missing `(Select TWO.)` tag, dashes, and answer-length bias. CI runs the same check on every pull request.
 
 To try the site locally, serve the folder with any static server, for example `python -m http.server`, and open http://localhost:8000.

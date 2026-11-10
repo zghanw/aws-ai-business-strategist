@@ -43,6 +43,7 @@ The AIB-C01 beta opened on 29 September 2026, and AWS's official practice exam i
 - Practice one domain at a time. After each answer, every option shows why it's right or wrong.
 - Take a mock exam in the beta format: 85 questions in 170 minutes, split by the official domain weights.
 - Get both multiple-choice and multiple-response questions, like the real exam.
+- Review each result with your answer and the correct answer labeled.
 - Come back to the questions you missed. They're saved in your browser.
 - Use it on a phone or a laptop, in light or dark mode.
 
@@ -87,9 +88,13 @@ Then open http://localhost:8000. Run `node check.js` to validate the question ba
 
 ## Contributing
 
-Questions live in `data/d1.js` to `data/d4.js`, one file per domain. [CONTRIBUTING.md](CONTRIBUTING.md) covers the format and the ground rules. To suggest a question or report a wrong one, use the [issue forms](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose).
+Questions live in `data/d1.js` to `data/d4.js`, one file per domain, and exam details such as the domain weights live in `exam.js`. [CONTRIBUTING.md](CONTRIBUTING.md) covers the format and the ground rules. To suggest a question or report a wrong one, use the [issue forms](https://github.com/zghanw/aws-ai-business-strategist/issues/new/choose).
 
 If this helped you prepare, a star helps other candidates find it.
+
+## More free AWS practice
+
+- [SOA-C03 Practice](https://zghanw.github.io/aws-cloudops-engineer-associate/) for the AWS Certified CloudOps Engineer - Associate exam: 325 questions and a timed mock exam, built the same way.
 
 ## Disclaimer
 

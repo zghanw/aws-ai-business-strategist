@@ -153,6 +153,8 @@ kbd { font: .75rem ui-monospace, monospace; border: 1px solid var(--line); borde
   body.session .nav { position: sticky; bottom: 0; z-index: 1; margin: 16px -16px 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: var(--glass); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-top: 1px solid var(--line); }
   body.session .nav .btn { flex: 1; }
 }
+/* Narrow phones also drop the logo during a session, so brand, timer, submit and theme still fit on one row. */
+@media (max-width: 380px) { body.session .brand img { display: none; } }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
   header, body.session .nav { -webkit-backdrop-filter: none; backdrop-filter: none; }
 }

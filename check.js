@@ -1,16 +1,19 @@
 // Data integrity check for the question bank. Run: node check.js
 global.window = {};
 const fs = require('fs');
+require('./exam.js'); // window.EXAM: this site's domains and weights
 fs.readdirSync(__dirname + '/data').filter(f => f.endsWith('.js')).sort().forEach(f => require('./data/' + f));
 const Q = window.QUESTIONS, ids = new Set(), errs = [];
+const DOMAINS = Object.keys(window.EXAM.domains).map(Number);
 const WORD = { 2: 'TWO', 3: 'THREE' };
 const mean = a => a.reduce((s, x) => s + x, 0) / a.length;
 let single = 0, longest = 0, ratios = [];
 for (const q of Q) {
   const e = m => errs.push(`${q.id}: ${m}`);
   if (ids.has(q.id)) e('duplicate id'); ids.add(q.id);
-  if (![1, 2, 3, 4].includes(q.d) || !q.id.startsWith('d' + q.d)) e('bad domain');
-  if (!q.q || q.o.length < 4 || q.o.length > 6) e('missing text or bad option count');
+  if (!DOMAINS.includes(q.d) || !q.id.startsWith('d' + q.d)) e('bad domain');
+  // Exam format: multiple choice is 1 of 4, multiple response is 2+ of 5 (the quiz keys go up to 5).
+  if (!q.q || q.o.length !== (q.a.length > 1 ? 5 : 4)) e('missing text or bad option count (4 for one answer, 5 for multiple)');
   if (!q.a.length || new Set(q.a).size !== q.a.length || q.a.some(i => !(i in q.o))) e('bad answer index');
   if (new Set(q.o).size !== q.o.length) e('duplicate options');
   if (!Array.isArray(q.r) || q.r.length !== q.o.length || q.r.some(s => !s || !s.trim())) { e('needs one rationale per option in r'); continue; }
@@ -27,7 +30,10 @@ for (const q of Q) {
   if (right / wrong > 1.4 && right - wrong > 12) e(`correct option is ${(right / wrong).toFixed(2)}x the length of the distractors (max 1.4x)`);
   if (q.a.length === 1) { single++; if (L.filter(x => x === Math.max(...L)).length === 1 && L[q.a[0]] === Math.max(...L)) longest++; }
 }
-const by = [1, 2, 3, 4].map(d => Q.filter(q => q.d === d).length);
+const by = DOMAINS.map(d => Q.filter(q => q.d === d).length);
+// The mock exam splits questions by these weights, so they must add up to 100.
+const weights = Object.values(window.EXAM.domains).reduce((s, m) => s + m.weight, 0);
+if (weights !== 100) errs.push(`domain weights in exam.js add up to ${weights}, not 100`);
 const share = longest / single, ratio = mean(ratios);
 console.log(`${Q.length} questions · by domain ${by.join(' / ')} · multi-select ${Q.filter(q => q.a.length > 1).length}`);
 console.log(`correct option is the longest in ${Math.round(100 * share)}% of single-answer questions · average length ratio ${ratio.toFixed(2)}x`);

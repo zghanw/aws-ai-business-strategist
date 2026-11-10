@@ -1,21 +1,7 @@
 'use strict';
-const DOMAINS = {
-  1: { name: 'AI Fundamentals and Literacy', weight: 24 },
-  2: { name: 'AI Strategy and Business Value Creation', weight: 28 },
-  3: { name: 'AI Governance and Responsible AI Leadership', weight: 24 },
-  4: { name: 'Business Readiness, Leadership, and AI Transformation', weight: 24 },
-};
-// Beta format (the standard exam's question count is not yet published).
-const MOCK = { count: 85, minutes: 170 };
-const GUIDE = 'https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html';
-const REPO = 'https://github.com/zghanw/aws-ai-business-strategist';
-// Verified against the official AIB-C01 exam guide and certification page, 2026-09-28.
-const FACTS = `
-    <li><b>Beta:</b> 85 questions, 170 minutes, USD 50. Delivery started 29 Sep 2026. You can sit the beta only once.</li>
-    <li><b>Standard:</b> 130 minutes, USD 100. The question count isn't published yet.</li>
-    <li>Question types: multiple choice (1 correct) and multiple response (2+ correct; you must pick all of them to get credit).</li>
-    <li>Scaled score 100 to 1,000; <b>700 to pass</b>. Scoring is compensatory, so you don't need to pass each domain. There's no penalty for guessing, so answer every question.</li>
-    <li>AWS services appear only at a strategic level: Amazon Bedrock (pricing tiers, Guardrails, Knowledge Bases), Amazon SageMaker AI, Amazon Quick, AWS CAF, the shared responsibility model, Pricing Calculator, Cost Explorer, Marketplace, Savings Plans, and the Well-Architected Responsible AI Lens.</li>`;
+// Exam-specific settings and text live in exam.js. This file, check.js and style.css are the same in every practice site.
+const EXAM = window.EXAM;
+const { domains: DOMAINS, mock: MOCK, guide: GUIDE, repo: REPO, facts: FACTS } = EXAM;
 const Q = window.QUESTIONS || [];
 const app = document.getElementById('app');
 const timerEl = document.getElementById('timer');
@@ -23,8 +9,8 @@ const endBtn = document.getElementById('end');
 const themeBtn = document.getElementById('theme');
 
 const store = {
-  get(k, d) { try { return JSON.parse(localStorage.getItem('aib:' + k)) ?? d; } catch { return d; } },
-  set(k, v) { try { localStorage.setItem('aib:' + k, JSON.stringify(v)); } catch {} },
+  get(k, d) { try { return JSON.parse(localStorage.getItem(EXAM.key + ':' + k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(EXAM.key + ':' + k, JSON.stringify(v)); } catch {} },
 };
 const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -71,13 +57,13 @@ function home() {
   leave();
   const missed = missedIds().length, best = store.get('best', {});
   app.innerHTML = `
-    <h1>AIB-C01 practice questions</h1>
-    <p class="muted">AWS Certified AI Business Strategist. ${Q.length} original scenario questions with a rationale for every option. Free, no sign-up, and your progress stays in this browser.</p>
+    <h1>${EXAM.code} practice questions</h1>
+    <p class="muted">${EXAM.name}. ${Q.length} original scenario questions with a rationale for every option. Free, no sign-up, and your progress stays in this browser.</p>
     <div class="actions">
       <button class="btn primary" data-go="all">Start mixed practice</button>
       ${missed ? `<button class="btn" data-go="missed">Review missed (${missed})</button>` : ''}
     </div>
-    <p class="strip">Beta exam: 85 questions · 170 min · 700/1000 to pass · <a href="#/info">Exam info</a></p>
+    <p class="strip">${EXAM.strip} · <a href="#/info">Exam info</a></p>
     <h2 class="sub">Practice by domain</h2>
     <div class="domains">${Object.entries(DOMAINS).map(([d, m]) => `
       <button class="drow" data-go="domain" data-d="${d}">
@@ -93,7 +79,7 @@ function lobby() {
   leave();
   const counts = mockCounts(Math.min(MOCK.count, Q.length));
   app.innerHTML = `
-    <h1>Mock exam (beta format)</h1>
+    <h1>${MOCK.title}</h1>
     <ul class="rules">
       <li>${MOCK.count} questions in ${MOCK.minutes} minutes, mixed by the official domain weights.</li>
       <li>No answer feedback until you submit.</li>
@@ -103,7 +89,7 @@ function lobby() {
     </ul>
     <div class="rows">${Object.entries(DOMAINS).map(([d, m], i) => `<div class="row"><span>D${d} · ${m.name}</span><strong>${counts[i]}</strong></div>`).join('')}</div>
     <div class="actions"><button class="btn primary" data-go="mock">Start mock exam</button></div>
-    <p class="muted small">The format follows the beta described in the <a href="${GUIDE}" target="_blank" rel="noopener">official exam guide</a>.</p>`;
+    <p class="muted small">${MOCK.note}</p>`;
 }
 
 function info() {
@@ -115,10 +101,7 @@ function info() {
     <h2 class="sub">Domains and weights</h2>
     <div class="rows">${Object.entries(DOMAINS).map(([d, m]) => `<div class="row"><span>D${d} · ${m.name}</span><strong>${m.weight}%</strong></div>`).join('')}</div>
     <h2 class="sub">Official resources</h2>
-    <ul>
-      <li><a href="${GUIDE}" target="_blank" rel="noopener">AIB-C01 exam guide</a></li>
-      <li><a href="https://aws.amazon.com/certification/certified-ai-business-strategist/" target="_blank" rel="noopener">AWS Certified AI Business Strategist certification page</a></li>
-      <li><a href="https://skillbuilder.aws/learning-plan/B8J6KKJ45C/exam-prep-plan--aws-certified-ai-business-strategist-aibc01--english/KQ8WMK8CTE" target="_blank" rel="noopener">Exam prep plan on AWS Skill Builder</a>, which includes the free 20-question official practice set (sign-in required)</li>
+    <ul>${EXAM.resources}
     </ul>
     <h2 class="sub">How this site works</h2>
     <ul>
@@ -130,7 +113,9 @@ function info() {
     </ul>
     <h2 class="sub">How the questions are written</h2>
     <p>Every question is original and written against the public exam guide. None come from the real exam, paid courses, or dumps. The questions were drafted with AI help, then checked one by one against the exam guide and AWS documentation. The whole question bank is open source on <a href="${REPO}" target="_blank" rel="noopener">GitHub</a>.</p>
-    <p>Think a question is wrong? <a href="${REPO}/issues/new/choose" target="_blank" rel="noopener">Report it</a> with the question ID shown above each question.</p>`;
+    <p>Think a question is wrong? <a href="${REPO}/issues/new/choose" target="_blank" rel="noopener">Report it</a> with the question ID shown above each question.</p>
+    <h2 class="sub">Why it's free</h2>
+    <p>Practice should be free for anyone who learns with their heart and is willing to put in the time. No sign-up, no ads, no paywall.</p>`;
 }
 
 // Largest-remainder split so the mock mirrors domain weights exactly.
@@ -248,10 +233,15 @@ function results() {
     const g = graded.filter(x => x.q.d == d);
     return g.length ? `<div class="row"><span>D${d} · ${m.name}</span><strong>${g.filter(ok).length}/${g.length}</strong><div class="meter"><i style="width:${pct(g.filter(ok).length, g.length)}%"></i></div></div>` : '';
   }).join('');
+  // Text labels as well as color, so the review survives copying, printing, and screen readers.
+  const mark = (x, oi) => {
+    const right = x.q.a.includes(oi), mine = x.pick.includes(oi);
+    return right || mine ? ` <span class="tag">${right && mine ? 'Your answer, correct' : right ? 'Correct answer' : 'Your answer'}</span>` : '';
+  };
   const review = graded.map(x => `
     <details class="${ok(x) ? 'ok' : 'bad'}" ${ok(x) ? '' : 'open'}>
-      <summary>${ok(x) ? '<span class="yes">✓</span>' : '<span class="no">✗</span>'} ${esc(x.q.q.replace(/\n\n/g, ' '))}</summary>
-      <ul>${x.order.map(oi => `<li class="${x.q.a.includes(oi) ? 'right' : x.pick.includes(oi) ? 'wrong' : ''}">${esc(x.q.o[oi])}<span class="why">${esc(x.q.r[oi])}</span></li>`).join('')}</ul>
+      <summary>${ok(x) ? '<span class="yes">✓</span>' : '<span class="no">✗</span>'} ${esc(x.q.q.replace(/\n\n/g, ' '))} <span class="muted small">#${x.q.id}</span>${x.pick.length ? '' : ' <span class="tag">Not answered</span>'}</summary>
+      <ul>${x.order.map(oi => `<li class="${x.q.a.includes(oi) ? 'right' : x.pick.includes(oi) ? 'wrong' : ''}">${esc(x.q.o[oi])}${mark(x, oi)}<span class="why">${esc(x.q.r[oi])}</span></li>`).join('')}</ul>
     </details>`).join('');
   const actions = missed
     ? `<button class="btn primary" data-go="missed">Review missed (${missed})</button><button class="btn" data-go="home">Back to practice</button>`
@@ -260,7 +250,7 @@ function results() {
     <h1>Results</h1>
     ${graded.length ? `
       <div class="score">${score}%</div>
-      <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ' The real exam reports a scaled score (100 to 1,000, pass 700) that is not a simple percentage, so treat this raw % as a rough guide and aim for 80%+.' : ''}</p>
+      <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ` The real exam reports a scaled score (100 to 1,000, pass ${EXAM.pass}) that is not a simple percentage. These are original practice questions, not exam questions, so use this score to find weak areas, not to predict your result.` : ''}</p>
       <div class="rows">${rows}</div>
       <div class="actions">${actions}</div>
       <h2>Review</h2>${review}` : `<p class="muted">No questions answered.</p><div class="actions">${actions}</div>`}`;
