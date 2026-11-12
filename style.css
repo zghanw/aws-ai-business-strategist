@@ -3,7 +3,8 @@
   --accent: #2f5bea; --accent-ink: #fff; --ok: #1a7f4b; --ok-bg: #e6f4ec; --bad: #b42318; --bad-bg: #fdecea;
   --flag: #b25e00; --glass: rgb(255 255 255 / .72);
   --ease: cubic-bezier(.2, .8, .2, 1);
-  color-scheme: light;
+  /* "only" stops phone browsers' forced dark mode (Chrome's dark theme for sites, Samsung Internet) from darkening the light theme. */
+  color-scheme: only light;
 }
 /* index.html sets data-theme before first paint: the saved choice, else the system theme.
    The header always takes the dark tokens, so the top bar looks the same in both themes. */
