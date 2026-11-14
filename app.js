@@ -253,6 +253,7 @@ function results() {
       <p class="muted">${right} of ${graded.length} correct.${S.mode === 'mock' ? ` The real exam reports a scaled score (100 to 1,000, pass ${EXAM.pass}) that is not a simple percentage. These are original practice questions, not exam questions, so use this score to find weak areas, not to predict your result.` : ''}</p>
       <div class="rows">${rows}</div>
       <div class="actions">${actions}</div>
+      <a class="teaser" href="https://zghanw.github.io/aws-certified-practice-exams/" target="_blank" rel="noopener">More free AWS practice exams, built the same way. <span>See all exams →</span></a>
       <h2>Review</h2>${review}` : `<p class="muted">No questions answered.</p><div class="actions">${actions}</div>`}`;
   enter();
   scrollTo(0, 0);
@@ -287,7 +288,12 @@ addEventListener('hashchange', () => {
   route();
 });
 
+// The header menu closes on a click anywhere else and on Escape.
+const more = document.getElementById('more');
+addEventListener('keydown', e => { if (e.key === 'Escape') more.open = false; });
+
 document.addEventListener('click', e => {
+  if (more.open && !e.target.closest('#more summary')) more.open = false;
   const g = e.target.closest('[data-go]');
   if (g) return g.dataset.go === 'home' ? go('#/') : start(g.dataset.go, g.dataset.d);
   const act = e.target.closest('[data-act]');

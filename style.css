@@ -34,7 +34,17 @@ header nav { display: flex; gap: 4px; }
 header nav a { padding: 6px 12px; border-radius: 980px; color: var(--muted); font-weight: 600; font-size: .9375rem; transition: color .15s, background-color .15s; }
 header nav a:hover { color: var(--ink); }
 header nav a[aria-current="page"] { color: var(--ink); background: var(--line); }
-body.session header nav, body.session header .gh { display: none; }
+body.session header nav, body.session header .gh, body.session header .more { display: none; }
+/* Menu in front of the logo: the home page that lists every practice site, then the other exams. */
+/* It is a <details>, so it resets the box that review items get further down. */
+.more { position: relative; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; }
+.more summary { list-style: none; }
+.more summary::-webkit-details-marker { display: none; }
+.menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 3; width: max-content; max-width: calc(100vw - 24px); padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+.menu a { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: .9375rem; }
+.menu a:hover { background: var(--line); }
+.menu a span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.menu svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 #timer { font-variant-numeric: tabular-nums; font-weight: 600; margin-left: auto; }
 #end { padding: 6px 14px; }
 header a.gh { font-size: .875rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 980px; padding: 6px 12px; transition: color .15s, border-color .15s; }
@@ -145,7 +155,8 @@ kbd { font: .75rem ui-monospace, monospace; border: 1px solid var(--line); borde
 @media (max-width: 520px) {
   h1 { font-size: 1.625rem; } h2 { font-size: 1.125rem; } .score { font-size: 2.75rem; }
   header { flex-wrap: wrap; padding: 10px 12px; column-gap: 8px; }
-  body:not(.session) header { position: static; }
+  /* Not sticky on phones, but still positioned so its z-index keeps the open menu above the page. */
+  body:not(.session) header { position: relative; }
   header nav { order: 3; width: 100%; }
   header nav a { flex: 1; min-height: 44px; display: grid; place-items: center; padding: 0; }
   .gh span { display: none; }
