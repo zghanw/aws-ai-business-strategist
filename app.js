@@ -289,11 +289,13 @@ addEventListener('hashchange', () => {
 });
 
 // The header menu closes on a click anywhere else and on Escape.
-const more = document.getElementById('more');
-addEventListener('keydown', e => { if (e.key === 'Escape') more.open = false; });
+const more = document.getElementById('more'), moreBtn = more.querySelector('button');
+const setMore = on => { more.classList.toggle('open', on); moreBtn.setAttribute('aria-expanded', on); };
+addEventListener('keydown', e => { if (e.key === 'Escape' && more.classList.contains('open')) { setMore(false); moreBtn.focus(); } });
 
 document.addEventListener('click', e => {
-  if (more.open && !e.target.closest('#more summary')) more.open = false;
+  if (e.target.closest('#more button')) return setMore(!more.classList.contains('open'));
+  if (more.classList.contains('open')) setMore(false);
   const g = e.target.closest('[data-go]');
   if (g) return g.dataset.go === 'home' ? go('#/') : start(g.dataset.go, g.dataset.d);
   const act = e.target.closest('[data-act]');

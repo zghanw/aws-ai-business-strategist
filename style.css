@@ -36,13 +36,20 @@ header nav a:hover { color: var(--ink); }
 header nav a[aria-current="page"] { color: var(--ink); background: var(--line); }
 body.session header nav, body.session header .gh, body.session header .more { display: none; }
 /* Menu in front of the logo: the home page that lists every practice site, then the other exams. */
-/* It is a <details>, so it resets the box that review items get further down. */
-.more { position: relative; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; }
-.more summary { list-style: none; }
-.more summary::-webkit-details-marker { display: none; }
-.menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 3; width: max-content; max-width: calc(100vw - 24px); padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
-.menu a { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: .9375rem; }
+.more { position: relative; }
+/* The 34px button gets a 44px hit area, and presses in on pointer-down like every other control. */
+.more button { position: relative; transition: color .15s, border-color .15s, transform .1s ease-out; }
+.more button::before { content: ""; position: absolute; inset: -5px; }
+.more button:active { transform: scale(.92); }
+.more.open button { color: var(--ink); border-color: var(--accent); }
+/* The panel grows out of the button and shrinks back into it along the same path. It stays in the page while
+   closed (hidden from pointers, keyboard and screen readers) so a reopen mid-close continues from where it is. */
+.menu { position: absolute; top: calc(100% + 8px); left: 0; z-index: 3; width: max-content; max-width: calc(100vw - 24px); padding: 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); box-shadow: 0 12px 32px rgb(0 0 0 / .32), 0 2px 6px rgb(0 0 0 / .2);
+  transform-origin: 17px -25px; transform: scale(.9); opacity: 0; visibility: hidden; transition: transform .2s var(--ease), opacity .15s, visibility 0s .2s; }
+.more.open .menu { transform: none; opacity: 1; visibility: visible; transition: transform .35s var(--ease), opacity .2s, visibility 0s; }
+.menu a { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: 8px; font-weight: 600; font-size: .9375rem; transition: background-color .15s; }
 .menu a:hover { background: var(--line); }
+.menu a:active { background: var(--line); transition: none; }
 .menu a span { color: var(--muted); font-variant-numeric: tabular-nums; }
 .menu svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 #timer { font-variant-numeric: tabular-nums; font-weight: 600; margin-left: auto; }
@@ -173,5 +180,6 @@ kbd { font: .75rem ui-monospace, monospace; border: 1px solid var(--line); borde
 /* Reduced motion keeps the feedback but drops the movement: fades only, no scaling or sliding. */
 @media (prefers-reduced-motion: reduce) {
   :active { transform: none !important; }
+  .menu, .more.open .menu { transform: none; transition: opacity .2s, visibility 0s; }
   @keyframes rise { from { opacity: 0; } }
 }
