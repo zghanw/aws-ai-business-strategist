@@ -51,7 +51,8 @@ body.session header nav, body.session header .gh, body.session header .more { di
 .menu a:hover { background: var(--line); }
 .menu a:active { background: var(--line); transition: none; }
 .menu a span { color: var(--muted); font-variant-numeric: tabular-nums; }
-.menu svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* The first row is the way home, so its label takes the accent colour. */
+.menu a:first-child span { color: var(--accent); }
 #timer { font-variant-numeric: tabular-nums; font-weight: 600; margin-left: auto; }
 #end { padding: 6px 14px; }
 header a.gh { font-size: .875rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 980px; padding: 6px 12px; transition: color .15s, border-color .15s; }
