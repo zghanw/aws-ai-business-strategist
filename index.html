@@ -15,6 +15,9 @@
 <link rel="icon" href="docs/logo.png">
 <script>{ let t; try { t = JSON.parse(localStorage.getItem('aib:theme')); } catch {} document.documentElement.dataset.theme = t || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }</script>
 <link rel="stylesheet" href="style.css">
+<!-- Business tier pink, matching the badge. style.css is shared by every practice site and defaults to Associate blue;
+     these are the same lightness and strength as that blue, with only the hue changed. The header always uses the dark value. -->
+<style>:root { --accent: #c20573; } :root[data-theme="dark"], header { --accent: #e4609b; }</style>
 </head>
 <body>
 <header>
