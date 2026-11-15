@@ -1,9 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/logo-readme-dark.png">
-  <img alt="AIB-C01 Practice logo" src="docs/logo-readme.png" width="200">
-</picture>
+<img alt="AWS Certified AI Business Strategist badge" src="docs/logo-readme.png" width="200">
 
 # AIB-C01 Practice
 
