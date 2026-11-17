@@ -93,6 +93,7 @@ If this helped you prepare, a star helps other candidates find it.
 
 - [SOA-C03 Practice](https://zghanw.github.io/aws-cloudops-engineer-associate/) for the AWS Certified CloudOps Engineer - Associate exam: 325 questions and a timed mock exam, built the same way.
 - [SCS-C03 Practice](https://zghanw.github.io/aws-security-specialty/) for the AWS Certified Security - Specialty exam: 300 questions and a timed mock exam, built the same way.
+- [SAA-C03 Practice](https://zghanw.github.io/aws-solutions-architect-associate/) for the AWS Certified Solutions Architect - Associate exam: 200 questions and a timed mock exam, built the same way.
 
 ## Disclaimer
 
